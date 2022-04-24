@@ -23,34 +23,89 @@ let stacks = {
 };
 
 // Start here. What is this function doing?
+
+// The function printStacks is to print in the console "a: " what are on the stacks a, b, and c. 
 const printStacks = () => {
   console.log("a: " + stacks.a);
   console.log("b: " + stacks.b);
   console.log("c: " + stacks.c);
-}
+} 
+
 
 // Next, what do you think this function should do?
-const movePiece = () => {
+
+// This function moves a piece from one to another.
+const movePiece = (startStack, endStack) => {
   // Your code here
 
+  // console.log(stacks.a, "**************************")
+  // console.log(stacks[startStack], "**************************")
+let startStackArr = stacks[startStack]
+let endStackArr = stacks[endStack]
+
+  // We use the pop methond here to remove the last string in the a array
+  let move = startStackArr.pop();
+  // With the push methond we place that string to another array
+  endStackArr.push(move);
 }
 
 // Before you move, should you check if the move it actually allowed? Should 3 be able to be stacked on 2
-const isLegal = () => {
+const isLegal = (startStack, endStack) => {
   // Your code here
-
+// We're moving a single string from a full array
+  console.log(stacks[startStack].slice(-1), '******')
+  console.log(stacks[endStack].slice(-1), '******')
+  if(stacks[endStack].length == 0){
+    return true;
+  } 
+  if(stacks[startStack].slice(-1) > stacks[endStack].slice(-1)) {
+    console.log('invalid move')
+    return false;
+  }
+  // if(stacks[startStack].length > 0) {
+  //     return true;
+  //   }
+    // This moves the string to an empty array
+  // With the slice methond this ensures the string in the endStack is greater than the string we're moving.
+    // if(endStack.slice(-1) > startStack.slice(-1)){
+    // return true;
+    // // If conditions aren't met it'll console out "Invalid move!"
+    // }
+     else {
+    console.log("Invalid move!")
+    return false;
+    }
 }
 
 // What is a win in Towers of Hanoi? When should this function run?
+// Player wins when all strings in the array of B and C are stracked in order [4, 3, 2, 1]
+// Before the other functions
 const checkForWin = () => {
   // Your code here
 
+// If stacks b and c have all 4 strings player wins. If not player loses.
+ if (stacks['b'].length == 4 || stacks['c'].length == 4){
+   return true;
+ } else {
+   return false
+ }
 }
-
 // When is this function called? What should it do with its argument?
+/// ************************************************ HELP ***************************************************
 const towersOfHanoi = (startStack, endStack) => {
   // Your code here
-
+  
+ // isLegal function checks the move is valid.
+if (isLegal(startStack, endStack)){
+  // movePiece moves the string if invalid it prompts the message
+  movePiece(startStack, endStack)
+} else {
+  console.log("Invalid Move!");
+} 
+// if wont it prompts this message
+if(checkForWin()){
+  console.log("You win!");
+}
 }
 
 const getPrompt = () => {
